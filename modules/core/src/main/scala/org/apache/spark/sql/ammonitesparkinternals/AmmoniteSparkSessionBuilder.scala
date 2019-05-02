@@ -238,7 +238,8 @@ class AmmoniteSparkSessionBuilder
         val fromBaseCp = jars.filter { f =>
           f.toASCIIString.contains("/scala-library-") ||
             f.toASCIIString.contains("/scala-reflect-") ||
-            f.toASCIIString.contains("/scala-compiler-")
+            f.toASCIIString.contains("/scala-compiler-") ||
+            f.toASCIIString.contains("/spark-stubs")
         }
         val fromSparkDistrib = Files.list(Paths.get(sparkHome).resolve("jars"))
           .iterator()
@@ -248,7 +249,8 @@ class AmmoniteSparkSessionBuilder
             val name = p.getFileName.toString
             !name.startsWith("scala-library-") &&
               !name.startsWith("scala-reflect-") &&
-              !name.startsWith("scala-compiler-")
+              !name.startsWith("scala-compiler-") &&
+              !name.startsWith("spark-repl_")
           }
           .map(_.toAbsolutePath.toUri)
 
